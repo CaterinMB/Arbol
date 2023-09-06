@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 import joblib
 import os
 
@@ -25,7 +26,9 @@ def predict():
 
     new_samples = np.array([[Nitrógeno, Fósforo, Potasio, Temperatura, Humedad, PH_Suelo, Precipitación]])
 
-    prediction = model.predict([new_samples])
+    escalas = scaler.transform(new_samples)
+
+    prediction = model.predict([escalas])
 
     mensaje = ""
     mensaje += f"La Clasificacion es: {prediction[0]}"
