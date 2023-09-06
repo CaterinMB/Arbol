@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import numpy as np
 import joblib
 import os
 
@@ -21,15 +22,13 @@ def predict():
     Humedad = float(request.form['Humedad'])
     PH_Suelo = float(request.form['PH_Suelo'])
     Precipitación = float(request.form['Precipitación'])
-    
-    pred_probabilities = model.predict_proba([[Nitrógeno, Fósforo, Potasio, Temperatura, Humedad, PH_Suelo, Precipitación]])
-    
-    suelos = model.classes_
+
+    new_samples = np.array([[Nitrógeno, Fósforo, Potasio, Temperatura, Humedad, PH_Suelo, Precipitación]])
+
+    prediction = model.predict([new_samples])
 
     mensaje = ""
-    for i, suelo in enumerate(suelos):
-        prob = pred_probabilities[0, i] * 100
-        mensaje += f"Probabilidad de {suelo}: {round(prob, 2)}% <br/>"
+    mensaje += f"La Clasificacion es: {prediction[0]}"
 
     return render_template('result.html', predi=mensaje)
 
