@@ -16,13 +16,13 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
 
-    Nitrógeno = float(request.form['Nitrógeno'])
-    Fósforo = float(request.form['Fósforo'])
-    Potasio = float(request.form['Potasio'])
-    Temperatura = float(request.form['Temperatura'])
-    Humedad = float(request.form['Humedad'])
-    PH_Suelo = float(request.form['PH_Suelo'])
-    Precipitación = float(request.form['Precipitación'])
+    Nitrógeno = int(request.form['Nitrógeno'])
+    Fósforo = int(request.form['Fósforo'])
+    Potasio = int(request.form['Potasio'])
+    Temperatura = int(request.form['Temperatura'])
+    Humedad = int(request.form['Humedad'])
+    PH_Suelo = int(request.form['PH_Suelo'])
+    Precipitación = int(request.form['Precipitación'])
 
     new_samples = np.array([[Nitrógeno, Fósforo, Potasio, Temperatura, Humedad, PH_Suelo, Precipitación]])
 
